@@ -14,8 +14,6 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.MediaEntityBuilder;
-import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
 import UtilClasses.Util1;
@@ -37,11 +35,10 @@ WebDriver driver;
 	@BeforeClass
 	@Parameters("browser")
 	public void beforeClass(String browser) {
-		htmlReporter = new ExtentHtmlReporter("ExtentReports.html");
-		reports = new ExtentReports();
+		htmlReporter = Base1.getHtmlReporter();
+		reports = Base1.getReports();
 		
-		reports.attachReporter(htmlReporter);
-		test = reports.createTest("VerifyUserCanLogin");
+		test = Base1.getExtentTest("VerifyUserCanLogin");
 		
 		driver = Base1.getDriver(browser);
 	}
@@ -49,13 +46,13 @@ WebDriver driver;
 	@BeforeMethod
 	public void beforeMethod() {
 		lp = new LoginPage(driver);
+		
 		hp = new HomePage(driver);
 	}
 	
 	@Test
 	public void VerifyUserLogin() throws IOException {
 		lp.enterEmailID();
-		
 		lp.enterPassword();
 		lp.clickOnLoginBtn();
 		boolean isProfileNameVisible = hp.checkProfileNameVisible();
@@ -66,24 +63,24 @@ WebDriver driver;
 	
 	@AfterMethod
 	public void afterMethod(ITestResult result) throws IOException {
+		Util1.getExtentReportStatus(result, driver, test);
 		
-		if(result.getStatus() == ITestResult.SUCCESS) {
-			test.log(Status.PASS, result.getName() +" is Passed");
-		}
-		
-		
-		
-		else if(result.getStatus() == ITestResult.FAILURE)
-		{
-			String path = Util1.getScreenShotPath(driver, result.getName());
-			
-			test.log(Status.FAIL, result.getName() +" is Failed", MediaEntityBuilder.createScreenCaptureFromPath(path).build());
-		}
-		
-		else if(result.getStatus() == ITestResult.SKIP){
-			
-			test.log(Status.FAIL, result.getName() +" is Skipped");
-		}
+		/*
+		 * if(result.getStatus() == ITestResult.SUCCESS) { test.log(Status.PASS,
+		 * result.getName() +" is Passed"); }
+		 * 
+		 * 
+		 * 
+		 * else if(result.getStatus() == ITestResult.FAILURE) { String path =
+		 * Util1.getScreenShotPath(driver, result.getName());
+		 * 
+		 * test.log(Status.FAIL, result.getName() +" is Failed",
+		 * MediaEntityBuilder.createScreenCaptureFromPath(path).build()); }
+		 * 
+		 * else if(result.getStatus() == ITestResult.SKIP){
+		 * 
+		 * test.log(Status.FAIL, result.getName() +" is Skipped"); }
+		 */
 		
 	}
 	

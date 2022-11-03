@@ -36,10 +36,12 @@ WebDriver driver;
 	}
 	
 	public void enterPassword() throws IOException {
+		//waitTillElementPresent(driver,password);
 		password.sendKeys(getDataFromConfig("password"));
 	}
 	
 	public void clickOnLoginBtn() {
+		//waitTillElementPresent(driver,loginBtn);
 		loginBtn.click();
 	}
 	

@@ -6,6 +6,7 @@
     <classes>
     	<class name="testClasses.VerifyUserCanLogin"/>
       <class name="testClasses.VerifyUserCanGetLowestPriceProduct"/>
+      <class name="testClasses.VerifyUserCanAddAddress"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
