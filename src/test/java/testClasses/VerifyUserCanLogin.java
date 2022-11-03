@@ -57,6 +57,8 @@ WebDriver driver;
 		lp.enterEmailID();
 		
 		lp.enterPassword();
+		
+		
 		lp.clickOnLoginBtn();
 		boolean isProfileNameVisible = hp.checkProfileNameVisible();
 		
